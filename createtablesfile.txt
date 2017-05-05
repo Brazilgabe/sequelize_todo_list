@@ -1,0 +1,9 @@
+CONTACTS TABLE
+sequelize model:create --name contacts --attributes username:string
+
+TASKS/NOTES
+sequelize model:create --name tasks --attributes userkey:string,listkey:integer,task:string,duedate:timestamp,notes:string
+
+TODO LIST KEY
+
+sequelize model:create --name lists --attributes userid:integer,listkey:integer,taskkey:string,name:string
