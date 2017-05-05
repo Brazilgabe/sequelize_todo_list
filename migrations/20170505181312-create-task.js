@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('tasks', {
+    return queryInterface.createTable('Tasks', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,12 +13,12 @@ module.exports = {
       },
       list_key: {
         type: Sequelize.INTEGER,
-        // onDelete: 'CASCADE',
-        // references: {
-        //   model: 'lists',
-        //   key: 'id',
-        //   as: 'list_key'
-        // }
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Lists',
+          key: 'id',
+          as: 'list_key'
+        }
       },
       task: {
         type: Sequelize.STRING
@@ -28,6 +28,9 @@ module.exports = {
       },
       notes: {
         type: Sequelize.STRING
+      },
+      completed: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +43,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('tasks');
+    return queryInterface.dropTable('Tasks');
   }
 };

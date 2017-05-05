@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('lists', {
+    return queryInterface.createTable('Lists', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,12 +10,12 @@ module.exports = {
       },
       user_key: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        autoIncrement: false,
-        foreignKey: true,
-      },
-      task_key: {
-        type: Sequelize.STRING
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Contacts',
+          key: 'id',
+          as: 'user_key'
+        }
       },
       name: {
         type: Sequelize.STRING
@@ -31,6 +31,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('lists');
+    return queryInterface.dropTable('Lists');
   }
 };

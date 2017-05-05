@@ -1,39 +1,21 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var lists = sequelize.define('lists', {
+  var List = sequelize.define('List', {
     user_key: DataTypes.INTEGER,
-    task_key: DataTypes.INTEGER,
     name: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
-        // lists.hasMany(models.tasks,{
-        //   foreignKey: 'list_key',
-        //   as: 'tasks'
-        // })
-        // lists.hasMany(models.tasks,{
-        //   foreignKey: 'id',
-        //   as: 'taskkey'
-        // })
+        List.belongsTo(models.Contact,{
+          foreignKey: 'user_key',
+          onDelete: 'CASCADE'
+        })
+        List.hasMany(models.Task,{
+          foreignKey: 'list_key',
+          as: 'tasks'
+        })
       }
     }
   });
-  return lists;
+  return List;
 };
-
-
-
-// contactId: {   // <- This is the new section to add
-//       type: Sequelize.INTEGER,
-//       onDelete: 'CASCADE',
-//       references: {
-//         model: 'Contacts',
-//         key: 'id',
-//         as: 'contactId'
-//       }
-//
-//       classMethods: {
-//      associate: function(models) {
-//        Contact.hasMany(models.Phone,{
-//          foreignKey: 'contactId',
-//          as: 'phones'
